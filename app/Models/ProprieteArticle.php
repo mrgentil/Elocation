@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ProprieteArticle extends Model
 {
     use HasFactory;
+    protected $fillable = ["name", "state", "type_article_id"];
+    public $timestamps = false;
+
+    public function type(){
+        return $this->belongsTo(TypeArticle::class, "type_article_id", "id");
+    }
+
+    public function articles(){
+        return $this->belongsToMany(Article::class, "article_propriete", "propriete_article_id", "article_id");
+    }
 }

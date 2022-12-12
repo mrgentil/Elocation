@@ -13,6 +13,25 @@ define("DEFAULTPASSOWRD", "password");*/
 function userFullName(){
     return auth()->user()->name . " " . auth()->user()->lastname;
 }
+
+function getRolesName(){
+    $rolesName = "";
+    $i = 0;
+    foreach(auth()->user()->roles as $role){
+        $rolesName .= $role->name;
+
+        if($i < sizeof(auth()->user()->roles) - 1 ){
+            $rolesName .= ",";
+        }
+
+        $i++;
+
+    }
+
+    return $rolesName;
+
+}
+
 /*
 function setMenuClass($route, $classe){
     $routeActuel = request()->route()->getName();
@@ -36,21 +55,4 @@ function contains($container, $contenu){
     return Str::contains($container, $contenu);
 }
 
-function getRolesName(){
-    $rolesName = "";
-    $i = 0;
-    foreach(auth()->user()->roles as $role){
-        $rolesName .= $role->nom;
-
-        //
-        if($i < sizeof(auth()->user()->roles) - 1 ){
-            $rolesName .= ",";
-        }
-
-        $i++;
-
-    }
-
-    return $rolesName;
-
-}*/
+*/

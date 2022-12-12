@@ -18,3 +18,32 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Le groupe des routes relatives aux administrateurs uniquement
+Route::group([
+    "middleware" => ["auth", "auth.Admin"],
+    'as' => 'admin.'
+], function(){
+
+    Route::group([
+        "prefix" => "habilitations",
+        'as' => 'habilitations.'
+    ], function(){
+
+        Route::get('/utilisateurs', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+        //Route::get("/rolesetpermissions", [UserController::class, "index"])->name("rolespermissions.index");
+        //
+
+    });
+
+    /*Route::group([
+        "prefix" => "gestarticles",
+        'as' => 'gestarticles.'
+    ], function(){
+
+        Route::get("/types", TypeArticleComp::class)->name("types");
+        Route::get("/articles", ArticleComp::class)->name("articles");
+        Route::get("/articles/{articleId}/tarifs", TarifComp::class)->name("articles.tarifs");
+
+    });*/
+});
